@@ -76,92 +76,115 @@ const CourseInfo = {
     }
   ];
 
-   //================   Validating Data   ================//
-
-let course_id = CourseInfo.id
-let group = AssignmentGroup.course_id
-
-   function mainData(course,group) {
-    if (group.course_id !== course.id) {
-      throw new Error(`Invalid data: AssignmentGroup ${group.id} does not belong to Course ${course.id}`);
-    }
-    
-    group.assignments.forEach(assignment => {
-      if (assignment.points_possible === 0) {
-        throw new Error(`Invalid data: Assignment ${assignment.id} has zero possible points.`);
-      }
-
-    });
+// =========================================================================      
+let LearnerData = {
+  CourseInfo: learner_id,
+  AssignmentGroup: LearnerSubmissions.assignment_id,
+  LearnerSubmissions:score
 
 }
 
+//Validate Course data
 
-function  calculateWeightedAverage(assignments) {
+function validateCourseID(CourseInfo, AssignmentGroup) {
 
-student1['id: 125', 'grades: 47, 150' ];
-student2 ['id: 132', 'grade: 39, 140'];
-
-
-  // Input: Array of assignment objects with scores, possible points, and late status
-  let totalWeightedScore = 0;
-  let totalPossiblePoints = 0;
-  
-
-  assignments.forEach((assignment) => {
-    let { score, possiblePoints, isLate } = assignment;
-
-    // Deduct 10% of possible points if the assignment is late
-    if (submitted_at > due_at) {
-      score -= 0.1 * possiblePoints;
-      score = Math.max(0, score); // Ensure score is not negative
-    }
-
-    totalWeightedScore += score;
-    totalPossiblePoints += possiblePoints;
-  });
-
-  if (totalPossiblePoints === 0) {
-    throw new Error("Total possible points cannot be zero.");
+  try { 
+    if(AssignmentGroup.id !==course.id) throw "Invalid input"     //Assignment group does not belong to course group
+  } catch (err) {
+    console.log(err); {
   }
+// Validate submission data
 
-  // Calculate the weighted average
-  const weightedAverage = (totalWeightedScore / totalPossiblePoints) * 100;
-  return weightedAverage.toFixed(2); // Return weighted average as a percentage (e.g., 85.67)
+  if (typeof points_possible !== 'number' || points_possible <= 0) {    //Points possible must be a number and greater than 0
+      throw new Error(`Invalid points_possible for assignment ${assignment_id}. Must be a positive number.`);
+  }
+  if (new Date(due_at) <= new Date() && course_id !== assignment_group_course_id) {  //Assignment due date and course id are not 
+    throw new Error(`Mismatching course_id for assignment ${assignment_id}.`);    //equal to Assignment group course id (mismatch)
+  }
+  if (typeof score !== 'number') {
+    throw new Error(`Invalid score for assignment ${assignment_id}. Score must be a number.`); //score must be a number not string
 }
-
-// Example Usage
-try {
-  const assignments = [
-    { score: 85, possiblePoints: 100, isLate: false },
-    { score: 90, possiblePoints: 100, isLate: true },
-    { score: 70, possiblePoints: 80, isLate: false },
-  ];
-
-  const weightedAverage = calculateWeightedAverage(assignments);
-  console.log(`Weighted Average: ${weightedAverage}%`);
-} catch (error) {
-  console.error(`Error: ${error.message}`);
+if (new Date(due_at) <= new Date()) {    //Assignment past due
+  let adjustedScore = score;
 }
+  }
+  }; 
+  
+  console.log(error); 
 
-  let totalWeightedScore= 0
 
-  return score.id / points_possible;
-}
-console.log(weightedGrade)
+let submissions =[
+  {learner_id, assignment_id, score, points_possible},
+
+]
+
+  let totalScore = 0;
+  let totalPointsPossible = 0;
 
   
-  // function validateData(course, group) {
-    
+
+
+  const percentage = (adjustedScore / AssignmentGroup.points_possible) * 100;
+  assignmentScores[assignment_id] = percentage;
+
+  totalScore += adjustedScore;
+  totalPointsPossible += points_possible;
+
+  if (submitted_at && new Date(submitted_at) > new Date(due_at)) {  //10% deduction from points possible for late submissions
+    adjustedScore -= 0.1 * points_possible;
+    adjustedScore = Math.max(0, adjustedScore); //  Score does no
+
+
+
+
+
+  /
+
+         
+
+          submissions.forEach(submission => {
+              const { assignment_id, points_possible, score, due_at, submitted_at, course_id, assignment_group_course_id } = submission;
+
+              /
+
+                    const percentage = (adjustedScore / points_possible) * 100;
+                    assignmentScores[assignment_id] = percentage;
+
+                    totalScore += adjustedScore;
+                    totalPointsPossible += points_possible;
+                }
+            });
+
+            const avg = totalPointsPossible > 0 ? (totalScore / totalPointsPossible) * 100 : 0;
+
+            return {
+                id,
+                avg,
+                ...assignmentScores
+              };
+            });
+        } catch (error) {
+            console.error("Error processing data:", error.message);
+            throw error; // Re-throw the error after logging it
+        }
+    }
+   
+    // const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
+  
+  // console.log(result);
+
+   
+  
   
 
-  // ============= Filter Assignments =====================//
+//    
 
 
-  // function filterValidAssignments(assignments) {
-  //   const now = new Date();
-  //   return assignments.filter(assignment => new Date(assignment.due_at) < now);
-  // }
-  
+
+
+// function get getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions); {
+//   validateData(course,ag)
+// }
   
   
   // Final Step // function getLearnerData(course, ag, submissions) {
@@ -169,13 +192,7 @@ console.log(weightedGrade)
     
   // }
   
-  // const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
   
-  // console.log(result);
-
-  
-  
-
 
   // const result = [
   //   {
